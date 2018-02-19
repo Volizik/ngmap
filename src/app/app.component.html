@@ -1,10 +1,10 @@
-<agm-map [latitude]="marker.lat" [longitude]="marker.lng">
-  <div  *ngFor="let item of data">
-    <div *ngFor="let work of item.works">
+<agm-map [latitude]="marker.lat" [longitude]="marker.lng" (mapClick)="placeMarker($event)">
+  <div  *ngFor="let user of data">
+    <div *ngFor="let work of user.works">
       <agm-marker [latitude]="work.location['lat']" [longitude]="work.location['lng']" [iconUrl]="workLabel">
         <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
           <ng-template>
-            <h2>{{ item.name }}</h2>
+            <h2>{{ user.name }}</h2>
             <p>{{ work.desc }}</p>
             <p>Цена {{ work.price }} грн</p>
           </ng-template>

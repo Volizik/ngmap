@@ -16,7 +16,9 @@ export class AppComponent implements OnInit {
   db.list('/users').valueChanges()
       .subscribe(data => {
         this.data = data;
+          console.log(this.data);
       });
+
   }
   workLabel = './assets/icons/label.png';
   getCurrentLocation() {
@@ -32,6 +34,9 @@ export class AppComponent implements OnInit {
       this.marker.lat = position.coords.latitude;
       this.marker.lng = position.coords.longitude;
   }
+    placeMarker(event) {
+      console.log(event.coords  );
+    }
   ngOnInit() {
       this.getCurrentLocation();
   }
