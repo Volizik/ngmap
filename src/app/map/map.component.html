@@ -1,0 +1,15 @@
+<agm-map [latitude]="marker.lat" [longitude]="marker.lng">
+  <div  *ngFor="let user of data">
+    <div *ngFor="let work of user.works">
+      <agm-marker [latitude]="work.location['lat']" [longitude]="work.location['lng']" [iconUrl]="workLabel">
+        <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+          <ng-template>
+            <a [routerLink]="['/cab-owner', user.id]" (click)="showUserInfo(user)">{{ user.name }}</a>
+            <p>{{ work.desc }}</p>
+            <p>Цена {{ work.price }} грн</p>
+          </ng-template>
+        </agm-snazzy-info-window>
+      </agm-marker>
+    </div>
+  </div>
+</agm-map>

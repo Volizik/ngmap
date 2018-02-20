@@ -1,0 +1,12 @@
+agm-map {
+    height: 500px;
+}
+.si-has-border .si-content-wrapper {
+    padding: 20px;
+    border: 1px solid #bbb;
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px #777;
+}
+.si-shadow-frame {
+    box-shadow: none!important;
+}
