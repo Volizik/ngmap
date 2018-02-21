@@ -14,10 +14,11 @@ import { CabOwnerComponent } from './cab-owner/cab-owner.component';
 import { CabUserComponent } from './cab-user/cab-user.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
+import {UserInfoService} from './services/user-info.service';
 
 const appRoutes: Routes = [
     { path: '', component: MainComponent },
-    { path: 'cab-owner/:id', component: CabOwnerComponent },
+    { path: 'cab-owner', component: CabOwnerComponent },
     { path: 'cab-user', component: CabUserComponent }
 ];
 
@@ -40,7 +41,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     MatCardModule
   ],
-  providers: [],
+  providers: [UserInfoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

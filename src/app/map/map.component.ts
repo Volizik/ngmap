@@ -1,5 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AngularFireDatabase} from 'angularfire2/database';
+import {UserInfoService} from '../services/user-info.service';
 
 @Component({
   selector: 'app-map',
@@ -8,7 +9,6 @@ import {AngularFireDatabase} from 'angularfire2/database';
 })
 export class MapComponent implements OnInit {
 
-    @Output() outputData = new EventEmitter();
     data: any[];
     marker = {
         lat: 0,
@@ -16,7 +16,7 @@ export class MapComponent implements OnInit {
     };
     workLabel = './assets/icons/label.png';
 
-    constructor(db: AngularFireDatabase) {
+    constructor(db: AngularFireDatabase, public userService: UserInfoService) {
         db.list('/users').valueChanges()
             .subscribe(data => {
                 this.data = data;
@@ -39,9 +39,8 @@ export class MapComponent implements OnInit {
     }
 
     showUserInfo(user) {
-        this.outputData.emit(user);
+        this.userService.addData(user);
     }
-
 
     ngOnInit() {
         this.getCurrentLocation();

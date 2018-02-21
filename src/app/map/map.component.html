@@ -4,7 +4,7 @@
       <agm-marker [latitude]="work.location['lat']" [longitude]="work.location['lng']" [iconUrl]="workLabel">
         <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
           <ng-template>
-            <a [routerLink]="['/cab-owner', user.id]" (click)="showUserInfo(user)">{{ user.name }}</a>
+            <a routerLink="/cab-owner" (click)="showUserInfo(user)">{{ user.name }}</a>
             <p>{{ work.desc }}</p>
             <p>Цена {{ work.price }} грн</p>
           </ng-template>

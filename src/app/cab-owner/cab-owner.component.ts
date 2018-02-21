@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UserInfoService} from '../services/user-info.service';
 
 @Component({
   selector: 'app-cab-owner',
@@ -8,14 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class CabOwnerComponent implements OnInit {
 
   user;
-  constructor() { }
-
-  getUser(user) {
-    this.user = user;
-    console.log(user);
+  constructor(infoService: UserInfoService) {
+      this.user = infoService.getData();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }
