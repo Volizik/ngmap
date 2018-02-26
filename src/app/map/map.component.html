@@ -1,15 +1,46 @@
-<agm-map [latitude]="marker.lat" [longitude]="marker.lng">
-  <div  *ngFor="let user of data">
-    <div *ngFor="let work of user.works">
-      <agm-marker [latitude]="work.location['lat']" [longitude]="work.location['lng']" [iconUrl]="workLabel">
-        <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
-          <ng-template>
-            <a routerLink="/cab-owner" (click)="showUserInfo(user)">{{ user.name }}</a>
-            <p>{{ work.desc }}</p>
-            <p>Цена {{ work.price }} грн</p>
-          </ng-template>
-        </agm-snazzy-info-window>
-      </agm-marker>
-    </div>
-  </div>
+<agm-map [latitude]="marker.lat" [longitude]="marker.lng" [zoom]="12">
+
+    <agm-marker [latitude]="marker.lat" [longitude]="marker.lng" [iconUrl]="workLabel">
+      <agm-snazzy-info-window style="width: 100%" [maxWidth]="500" [closeWhenOthersOpen]="true" padding="10px">
+        <ng-template>
+
+        </ng-template>
+      </agm-snazzy-info-window>
+    </agm-marker>
+
 </agm-map>
+
+<div class="overlay" *ngIf="authModalIsVisible">
+  <div class="modal">
+    <mat-card>
+      <form>
+        <mat-form-field>
+          <input matInput placeholder="Email" type="email" [formControl]="emailFormControl">
+          <mat-error *ngIf="emailFormControl.hasError('email')">
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Password" type="password">
+        </mat-form-field>
+
+        <button mat-raised-button
+                color="primary"
+                (click)="login()">Войти
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>
+
+<div class="buttons">
+  <button mat-raised-button
+          color="primary"
+          class="auth-btn"
+          (click)="authModalToggle()">{{ authModalIsVisible ? 'Закрыть' : 'Войти' }}
+  </button>
+  <button mat-mini-fab color="primary" class="menu-btn">
+    <mat-icon>menu</mat-icon>
+  </button>
+</div>

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AngularFireDatabase} from 'angularfire2/database';
-import {UserInfoService} from '../services/user-info.service';
+import {AuthService} from '../services/auth.service';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-map',
@@ -9,19 +9,19 @@ import {UserInfoService} from '../services/user-info.service';
 })
 export class MapComponent implements OnInit {
 
-    data: any[];
+    email: string;
+    password: string;
     marker = {
         lat: 0,
         lng: 0
     };
     workLabel = './assets/icons/label.png';
+    authModalIsVisible = false;
+    emailFormControl = new FormControl('', [
+        Validators.email
+    ]);
 
-    constructor(db: AngularFireDatabase, public userService: UserInfoService) {
-        db.list('/users').valueChanges()
-            .subscribe(data => {
-                this.data = data;
-            });
-    }
+    constructor(public authService: AuthService) {}
 
     getCurrentLocation() {
         if (navigator.geolocation) {
@@ -38,8 +38,22 @@ export class MapComponent implements OnInit {
         this.marker.lng = position.coords.longitude;
     }
 
-    showUserInfo(user) {
-        this.userService.addData(user);
+    authModalToggle() {
+        this.authModalIsVisible = !this.authModalIsVisible;
+    }
+
+    signup() {
+        this.authService.signup(this.email, this.password);
+        this.email = this.password = '';
+    }
+
+    login() {
+        this.authService.login(this.email, this.password);
+        this.email = this.password = '';
+    }
+
+    logout() {
+        this.authService.logout();
     }
 
     ngOnInit() {
